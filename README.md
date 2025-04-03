@@ -57,14 +57,18 @@ This document outlines the steps taken to set up and work with Tailwind CSS in t
    @tailwind utilities;
    ```
 
-6. **Build CSS**
+6. **Build**
 
-   Add a build script to your `package.json` to process your CSS with Tailwind:
+   Add a build script to your `package.json` to process your CSS and other files with Tailwind:
 
    ```json
    "scripts": {
-     "build:css": "postcss src/styles.css -o dist/styles.css"
-   }
+    "build:css": "tailwindcss -i ./src/assets/css/main.css -o ./dist/assets/css/main.css --watch",
+    "build:files": "cpx \"src/**/*.{html,js}\" dist --watch",
+    "build:images": "cpx \"src/assets/img/**/*.{jpg,jpeg,png,gif,svg}\" dist/assets/img --watch",
+    "build": "npm-run-all --parallel build:*",
+    "dev": "npm run build"
+  },
    ```
 
    Run the build script:
@@ -83,7 +87,7 @@ This document outlines the steps taken to set up and work with Tailwind CSS in t
    <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link href="dist/styles.css" rel="stylesheet">
+     <link href="./assets/css/main.css" rel="stylesheet">
      <title>Tailwind CSS Project</title>
    </head>
    <body>

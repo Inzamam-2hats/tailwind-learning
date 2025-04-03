@@ -1,0 +1,69 @@
+1. create a folder tailwind learning
+2. npm install -D tailwindcss postcss autoprefixer
+3. npx tailwindcss init (then the node_modules and tailwind.config.js files are created)
+4. create postcss.config.js file and
+
+	module.exports = {
+	  plugins: {
+	    tailwindcss: {},
+	    autoprefixer: {},
+	  }
+	}
+
+add this
+
+5. add this to tailwind.config.js file
+
+	/** @type {import('tailwindcss').Config} */
+	module.exports = {
+	  content: ["./src/**/*.{html,js}"],
+	  theme: {
+	    extend: {},
+	  },
+	  plugins: [],
+	}
+	
+6. create src/assets/css.main.css and add in it
+	
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+	
+7. create packege,json file and add in it
+
+	{
+	  "scripts": {
+	    "build:css": "tailwindcss -i ./src/assets/css/main.css -o ./dist/assets/css/main.css --watch",
+	    "build:files": "cpx \"src/**/*.{html,js}\" dist --watch",
+	    "build:images": "cpx \"src/assets/img/**/*.{jpg,jpeg,png,gif,svg}\" dist/assets/img --watch",
+	    "build": "npm-run-all --parallel build:*",
+	    "dev": "npm run build"
+	  },
+	  "devDependencies": {
+	    "autoprefixer": "^10.4.20",
+	    "cpx": "^1.5.0",
+	    "postcss": "^8.4.49",
+	    "postcss-import": "^16.1.0",
+	    "tailwindcss": "^3.4.16"
+	  }
+	}
+	
+8. create index.html in the src and link css
+
+	<!doctype html>
+	<html>
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link href="/dist/main.css" rel="stylesheet">
+	</head>
+	<body>
+	  <h1 class="text-3xl font-bold underline">
+	    Hello world!
+	  </h1>
+	</body>
+	</html>
+	
+	
+9. npm run build
+
